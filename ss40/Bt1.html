@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bt1</title>
+</head>
+<body>
+    <input type="text" placeholder="Fullname" id="name">
+    <br>
+    <input type="email" placeholder="Email" id="email">
+    <br>
+    <button>Lưu</button>
+    <button id="del">Xóa tất cả</button>
+    <ul>
+       
+    </ul>
+    <script>
+        let del=document.getElementById("del");
+        let name= document.getElementById("name");
+        let email=document.getElementById("email");
+        let btn=document.querySelector("button");
+        let list=document.querySelector("ul");
+        let listPerson=[];   
+        btn.addEventListener("click",function(){
+            let person={name: name.value,email: email.value};
+            listPerson.push(person);
+            localStorage.setItem('listPerson',JSON.stringify(listPerson));
+            render();
+        })
+        function render() { 
+            localStorage.setItem('listPerson',JSON.stringify(listPerson));
+            listPerson=JSON.parse(localStorage.getItem('listPerson'));
+            list.innerHTML="";
+            for (let i = 0; i <listPerson.length; i++) {
+                list.innerHTML+= `<li>name:${listPerson[i].name}  email:${listPerson[i].email}</li>`;
+            }
+        }
+        render();
+        del.addEventListener("click",function () {
+            localStorage.clear();
+            render();
+        })
+    </script>
+</body>
+</html>
